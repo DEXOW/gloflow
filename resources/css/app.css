@@ -1,0 +1,47 @@
+.navbar-bg-color{
+    background-color: #D9D9D9;
+}
+.nav-link {
+    color: #1e1e1e;
+}
+.active{
+    color: #000000!important;
+    font-weight: 700;
+}
+.vertical-divider {
+    border-left: 5px solid #FFFFFF;
+    opacity: 0.75;
+    width: 1px;
+    height: 40px;
+}
+
+/* Btn */
+.btn-primary {
+    background-color: #5F00D9;
+    color: #FFFFFF;
+}
+.btn-primary:hover {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+}
+.btn-secondary {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+.btn-secondary:hover {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+}
+.btn-outline-primary {
+    color: #5F00D9;
+    border: 1px solid #5F00D9;
+}
+.btn-outline-primary:hover {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+}
+
+/* Card */
+.login-card {
+    background-color: #5F00D9;
+}
