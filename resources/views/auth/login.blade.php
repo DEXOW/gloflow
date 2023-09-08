@@ -79,9 +79,9 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="d-flex align-items-center">
-                            <h1 class="text-white">Login</h1>
+                            <h1 class="text-white">{{__('Login')}}</h1>
                             <span class="vertical-divider mx-3"></span>
-                            <h3 class="text-white text-opacity-75">Sign Up</h3>
+                            <a class="btn" href="{{ route('register') }}"><h3 class="text-white text-opacity-75">{{__('Register')}}</h3></a>
                         </div>
                         <div class="col">
                             <label for="email" class="col-md-4 col-form-label">{{ __('Email Address') }}</label>
@@ -111,8 +111,20 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row mx-5 mt-5">
-                            <button type="submit" class="btn bg-white text-black fw-bold">
+                            <button type="submit" class="btn btn-secondary fw-bold">
                                 {{ __('Login') }}
                             </button>
                             @if (Route::has('password.request'))

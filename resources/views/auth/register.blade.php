@@ -79,12 +79,12 @@
         <div class="col-md-5 py-5">
             <div class="card login-card p-4">
                 <div class="card-body text-white">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="d-flex align-items-center">
-                            <h1 class="text-white">Sign Up</h1>
+                            <h1 class="text-white">{{__('Register')}}</h1>
                             <span class="vertical-divider mx-3"></span>
-                            <h3 class="text-white text-opacity-75">Login</h3>
+                            <a class="btn" href="{{ route('login') }}"><h3 class="text-white text-opacity-75">{{__('Login')}}</h3></a>
                         </div>
                         <div class="row">
                             <div class="col">
@@ -116,12 +116,12 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="name" class="col col-form-label">{{ __('Phone Number') }}</label>
+                                <label for="phone-number" class="col col-form-label">{{ __('Phone Number') }}</label>
 
                                 <div class="col">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    <input id="phone-number" type="text" class="form-control @error('phone-number') is-invalid @enderror" name="phone-number" value="{{ old('phone-number') }}" required autocomplete="phone-number" autofocus>
 
-                                    @error('name')
+                                    @error('phone-number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -129,12 +129,12 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label for="email" class="col col-form-label">{{ __('Address') }}</label>
+                                <label for="address" class="col col-form-label">{{ __('Address') }}</label>
 
                                 <div class="col">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ old('address') }}" required autocomplete="address" autofocus>
 
-                                    @error('email')
+                                    @error('address')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -147,7 +147,7 @@
                                 <label for="password" class="col col-form-label">{{ __('Password') }}</label>
 
                                 <div class="col">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -157,12 +157,12 @@
                                 </div>
                             </div>
                             <div class="col">
-                                <label for="password" class="col col-form-label">{{ __('Confirm Password') }}</label>
+                                <label for="confirm-password" class="col col-form-label">{{ __('Confirm Password') }}</label>
 
                                 <div class="col">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
 
-                                    @error('password')
+                                    @error('confirm-password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -173,13 +173,8 @@
 
                         <div class="row mx-5 mt-5">
                             <button type="submit" class="btn bg-white text-black fw-bold">
-                                {{ __('Login') }}
+                                {{ __('Register') }}
                             </button>
-                            @if (Route::has('password.request'))
-                                <a class="btn text-white p-0 mx-0 my-1" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            @endif
                         </div>
                     </form>
                 </div>
