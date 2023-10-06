@@ -16,31 +16,6 @@
     </head>
     <body>
       @yield('navbar')
-        {{-- <nav class="navbar navbar-expand-lg navbar-bg-color fixed-top">
-            <div class="container-md">
-              <a class="navbar-brand" href="#">
-                <img src="{{ asset('assets/images/logo.svg') }}" alt="" height="35">
-              </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto mx-2">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Products</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
-                  </li>
-                </ul>
-                <a class="btn btn-primary mx-2" href="{{ route('login') }}">{{ __('Login') }}</a>
-                <a class="btn btn-outline-primary mx-2" href="{{ route('register') }}">{{ __('Register')}}</a>
-              </div>
-            </div>
-          </nav> --}}
           <div style="height: 100vh; background-image: url({{ asset('assets/images/hero.svg') }}); background-repeat: no-repeat; background-size: cover;">
             <div class="row align-items-center justify-content-center h-75 w-50">
               <div class="col-md-6 p-5 w-50 rounded-3" style="background-color: #5F00D9">

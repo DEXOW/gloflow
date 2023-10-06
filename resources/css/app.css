@@ -4,7 +4,7 @@
 .nav-link {
     color: #1e1e1e;
 }
-.active{
+.nav-item .active{
     color: #000000!important;
     font-weight: 700;
 }
