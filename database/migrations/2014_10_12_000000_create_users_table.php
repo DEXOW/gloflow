@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('phone_number', 20);
-            $table->string('address');
+            $table->string('phone_number', 20)->nullable();
+            $table->string('address')->nullable();
             $table->string('password');
             $table->foreignId('role_id')->constrained('roles');
             $table->string('status', 20)->default('active');

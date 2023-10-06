@@ -98,18 +98,31 @@ Follow these steps to set up the Respawn Entertainment CRM system on your local 
     php artisan migrate
     ```
 
-9. Build the frontend:
+9. Seed the database:
+
+    ```shell
+    php artisan db:seed --class=ProductsSeeder
+    php artisan db:seed --class=RolesSeeder
+    php artisan db:seed --class=UsersSeeder
+    ```
+
+10. Build the frontend:
     ```shell
     npm run build
     ```
-10. Start the development server:
+11. Start the development server:
 
     ```shell
     php artisan serve
     ```
 
-11. Visit `http://localhost:8000` or `http://127.0.0.1:8000` in your web browser to access the CRM system.
+12. Visit `http://localhost:8000` or `http://127.0.0.1:8000` in your web browser to access the CRM system.
 
 ---
 
 With these steps, you'll have the Gloflow CRM system up and running on your local environment.
+
+Once the Gloflow CRM system is ready, you can login to the dashboard as an admin by locating the login page and entering the following credentials :
+
+    Email : it.admin@gloflow.com
+    Password : admin.password

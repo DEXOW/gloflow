@@ -15,19 +15,19 @@ class UsersSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Thinal Perera',
-                'email' => 'thinaltp@gmail.com',
-                'phone_number' => '0771234567',
-                'address' => 'No 1, Galle Road, Colombo 03',
-                'password' => bcrypt('password'),
+                'name' => 'Super Admin',
+                'email' => 'it.admin@gloflow.com',
+                'phone_number' => '',
+                'address' => '',
+                'password' => bcrypt('admin.password'), // Password for admin is "admin.password"
                 'role_id' => 1,
             ],
             [
-                'name' => 'Dexow',
-                'email' => 'dexow5000@gmail.com',
-                'phone_number' => '0771234567',
+                'name' => 'John Doe',
+                'email' => 'johndoe@gmail.com',
+                'phone_number' => '0771234568',
                 'address' => 'No 2, Galle Road, Colombo 03',
-                'password' => bcrypt('password'),
+                'password' => bcrypt('password'), // Password for user is "password"
                 'role_id' => 2,
             ],
         ];
