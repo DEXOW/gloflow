@@ -19,7 +19,7 @@
       <div class="modal fade" id="addProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div class="modal-content">
-            <form id="add-product-form" enctype="multipart/form-data">
+            <form id="add-product-form" action="{{ route('dashboard.products_manager.add_product') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="modal-header">
               <h5 class="modal-title fw-bold">Add Product</h5>
@@ -87,8 +87,8 @@
                   <div>{{ $product->id }}</div>
                   <div>{{ $product->name }}</div>
                 </div>
-                <div class="d-flex align-items-center gap-2 flex-wrap">
-                  <div class="d-flex gap-1">
+                <div class="d-flex align-items-center gap-2">
+                  <div class="d-flex gap-1 justify-content-end flex-wrap">
                     @foreach (explode(',', $product->tags) as $tag)
                       <div class="badge bg-secondary">{{ $tag }}</div>
                     @endforeach
@@ -99,11 +99,49 @@
                       @method('DELETE')
                       <button class="btn btn-light delete-button" style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .35rem; --bs-btn-font-size: .75rem;"><i class="bi bi-trash-fill" style="color: #c83a3a"></i></button>
                     </form>
-                    <button class="btn btn-light add-button" style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .35rem; --bs-btn-font-size: .75rem;"><i class="bi bi-pencil-square" style="color: #4370b4"></i></button>
+                    <button class="btn btn-light add-button" style="--bs-btn-padding-y: .2rem; --bs-btn-padding-x: .35rem; --bs-btn-font-size: .75rem;" data-bs-toggle="modal" data-bs-target="#editProductModal-{{ $product->id }}"><i class="bi bi-pencil-square" style="color: #4370b4"></i></button>
                   </div>
                 </div>
               </div>
             </li>
+            <div class="modal fade" id="editProductModal-{{ $product->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <form id="add-product-form" action="{{ route('dashboard.products_manager.update_product', $product->id) }}" method="post" enctype="multipart/form-data">
+                  @csrf
+                  @method('PUT')
+                  <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Edit Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <div>
+                        <div class="mb-3">
+                          <label for="name" class="form-label">Name</label>
+                          <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" value="{{ $product->name }}">
+                        </div>
+                        <div class="mb-3">
+                          <label for="description" class="form-label">Description</label>
+                          <textarea class="form-control" id="description" name="description" placeholder="Description">{{ $product->description }}</textarea>
+                        </div>
+                        <div class="mb-3">
+                          <label for="tags" class="form-label">Tags</label>
+                          <input class="form-control" id="tags" name="tags" placeholder="Tags" value="{{ $product->tags }}">
+                        </div>
+                        <div class="input-group mb-3">
+                          <input type="file" accept="image/*" class="form-control" id="image" name="image">
+                          <label class="input-group-text" for="image">Upload</label>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Edit</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
           @endforeach
         </ul>
       </div>
@@ -112,29 +150,6 @@
         let productCheckboxes = document.getElementsByClassName('product-checkbox');
         let batchDeleteButton = document.getElementById('batch-delete');
         let addProductForm = document.getElementById('add-product-form');
-
-        // Adding product
-        $('#add-product-form').submit(function (event) {
-          event.preventDefault();
-
-          $.ajax({
-            url: '{{ route('dashboard.products_manager.add_product') }}',
-            type: 'post',
-            data: new FormData(this),
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function( _response ){
-              if (_response.status == 'success') {
-                window.location.reload();
-              }
-            },
-            error: function( _response ){
-              console.log('error');
-              console.log(_response);
-            }
-          });
-        });
 
         // Batch delete button
         checkAllCheckbox.addEventListener('change', function() {
@@ -162,8 +177,34 @@
             } else {
               batchDeleteButton.classList.add('d-none');
             }
-            console.log('changed')
           });
+        });
+
+        document.getElementById('batch-delete').addEventListener('click', function() {
+          let checkedProductIds = [];
+          for (let i = 0; i < productCheckboxes.length; i++) {
+            if (productCheckboxes[i].checked) {
+              checkedProductIds.push(productCheckboxes[i].value);
+            }
+          }
+          if (checkedProductIds.length > 0) {
+            if (confirm('Are you sure you want to delete these products?')) {
+              $.ajax({
+                url: '{{ route('dashboard.products_manager.batch_delete_products') }}',
+                type: 'POST',
+                data: {
+                  _token: '{{ csrf_token() }}',
+                  ids: checkedProductIds
+                },
+                success: function(response) {
+                  console.log(response.status);
+                  if (response.status == 'success') {
+                    location.reload();
+                  }
+                }
+              });
+            }
+          }
         });
       </script>
     </body>

@@ -14,16 +14,20 @@
                         <li class="nav-item">
                             <a class="nav-link @active('dashboard')" aria-current="page" href="{{ route('dashboard') }}">Overview</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link @active('product_manager')" href="{{ route('dashboard.products_manager') }}">Product Manager</a>
-                        </li>
+                        @if (Auth::check())
+                            @if (in_array(Auth::user()->role_id, array(1,3,4)))
+                                <li class="nav-item">
+                                    <a class="nav-link @active('products_manager')" href="{{ route('dashboard.products_manager') }}">Product Manager</a>
+                                </li>
+                            @endif
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link @active('posts-page')" href="#">Poster</a>
                         </li>
                         @if (Auth::check())
-                            @if (Auth::user()->role == 'admin')
+                            @if (Auth::user()->role_id == 1)
                                 <li class="nav-item">
-                                    <a class="nav-link @active('users-page')" href="#">Manage Users</a>
+                                    <a class="nav-link @active('users_manager')" href="{{ route('dashboard.users_manager') }}">Manage Users</a>
                                 </li>
                             @endif
                         @endif
@@ -62,7 +66,6 @@
                     @else
                         <a class="dropdown-item  @active('dashboard')" href="{{ route('dashboard') }}">Dashboard</a>
                     @endif
-                    <a class="dropdown-item @active('profile')" href="#">Profile</a>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">

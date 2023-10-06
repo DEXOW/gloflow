@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('phone_number', 20);
             $table->string('address');
             $table->string('password');
-            $table->string('role', 20)->default('user');
+            $table->foreignId('role_id')->constrained('roles');
+            $table->string('status', 20)->default('active');
             $table->rememberToken();
             $table->timestamps();
         });

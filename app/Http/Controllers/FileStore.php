@@ -14,13 +14,10 @@ class FileStore extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // $file = $request->file('image');
-            // $filename = $file->getClientOriginalName();
-            // $file->storeAs('public/assets/images/products/', $filename);
             $save_path = 'assets/images/products/';
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            Image::make($image)->crop(300, 300)->save($save_path . $filename );
+            Image::make($image)->resize(300, 300)->save($save_path . $filename );
             return response()->json(['path' => $save_path.$filename]);
         }
     }

@@ -32,9 +32,12 @@
                     <img src="{{ $product->image }}" alt="{{ $product->name }}" class="card-img-top">
                     <div class="card-body">
                         <h4 class="card-title">{{ $product->name }}</h4>
-                        <p>{{ $product->author }}</p>
-                        <p class="card-text"><strong>Price: </strong> ${{ $product->price }}</p>
-                        <p class="btn-holder"><a href="" class="btn btn-outline-danger">Add to cart</a> </p>
+                        <p class="card-text">{{ implode(' ', array_slice(explode(' ', $product->description), 0, 5)).'...' }}</p>
+                        <div class="d-flex flex-wrap gap-1">
+                            @foreach (explode(',', $product->tags) as $tag)
+                              <div class="badge" style="background-color: #aeadad6b; color: #7e7e7e">{{ $tag }}</div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>

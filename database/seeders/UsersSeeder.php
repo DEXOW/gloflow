@@ -20,6 +20,15 @@ class UsersSeeder extends Seeder
                 'phone_number' => '0771234567',
                 'address' => 'No 1, Galle Road, Colombo 03',
                 'password' => bcrypt('password'),
+                'role_id' => 1,
+            ],
+            [
+                'name' => 'Dexow',
+                'email' => 'dexow5000@gmail.com',
+                'phone_number' => '0771234567',
+                'address' => 'No 2, Galle Road, Colombo 03',
+                'password' => bcrypt('password'),
+                'role_id' => 2,
             ],
         ];
         foreach ($users as $user) {

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use GuzzleHttp\Psr7\Response;
 
 class ProductsManagerController extends Controller
 {
@@ -46,10 +44,10 @@ class ProductsManagerController extends Controller
             'image' => json_decode($path->getContent())->path,
         ]);
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product added successfully.'
-        ]);
+        return redirect()->route('dashboard.products_manager')->with(
+            'success',
+            'Product added successfully.'
+        );
     }
 
     public function delete_product($id)
@@ -59,6 +57,44 @@ class ProductsManagerController extends Controller
         return redirect()->route('dashboard.products_manager')->with(
             'success',
             'Product deleted successfully.'
+        );
+    }
+
+    public function batch_delete_products(Request $request)
+    {
+        $ids = $request->input('ids');
+        Product::whereIn('id', $ids)->delete();
+
+        return response()->json(['status' => 'success']);
+    }
+
+    public function update_product(Request $request, $id)
+    {
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $tags = strtolower($request->input('tags'));
+
+        $product = Product::find($id);
+
+        if ($product->name != $name) {
+            $product->name = $name;
+        }
+        if ($product->description != $description) {
+            $product->description = $description;
+        }
+        if ($product->tags != $tags) {
+            $product->tags = $tags;
+        }
+        if ($request->hasFile('image')) {
+            $path = FileStore::img_store($request);
+            $product->image = json_decode($path->getContent())->path;
+        }
+
+        $product->update();
+
+        return redirect()->route('dashboard.products_manager')->with(
+            'success',
+            'Product updated successfully.'
         );
     }
 }
