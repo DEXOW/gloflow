@@ -29,18 +29,18 @@
                 <div>
                   <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Product Name">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" required>
                   </div>
                   <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" placeholder="Description"></textarea>
+                    <textarea class="form-control" id="description" name="description" placeholder="Description" required></textarea>
                   </div>
                   <div class="mb-3">
                     <label for="tags" class="form-label">Tags</label>
-                    <input class="form-control" id="tags" name="tags" placeholder="Tags">
+                    <input class="form-control" id="tags" name="tags" placeholder="Tags" required>
                   </div>
                   <div class="input-group mb-3">
-                    <input type="file" accept="image/*" class="form-control" id="image" name="image">
+                    <input type="file" accept="image/*" class="form-control" id="image" name="image" required>
                     <label class="input-group-text" for="image">Upload</label>
                   </div>
                 </div>
@@ -145,7 +145,7 @@
           @endforeach
         </ul>
       </div>
-      <script type="module">
+      <script>
         let checkAllCheckbox = document.getElementById('checkAllCheckbox');
         let productCheckboxes = document.getElementsByClassName('product-checkbox');
         let batchDeleteButton = document.getElementById('batch-delete');
