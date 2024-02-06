@@ -48,11 +48,25 @@
                 <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required/>
                 <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
             </div>
+
+            <!-- Client -->
+            @php
+                $clients = \App\Models\Client::pluck('name', 'id');
+            @endphp
+            <div>
+                <x-input-label for="client_id" :value="__('Company')" />
+                <x-select-input id="client_id" class="block mt-1 w-full" name="client_id" :value="old('client')" required>
+                    @foreach ($clients as $id => $name)
+                        <option value="{{ $id }}">{{ $name }}</option>
+                    @endforeach
+                </x-select-input>
+                <x-input-error :messages="$errors->get('client')" class="mt-2" />
+            </div>
         </div>
 
         <div class="flex flex-col items-center justify-center mt-10 gap-2">
             <button type="submit" class="inline-flex items-center px-4 py-2 bg-white border border-transparent rounded-md font-extrabold text-md text-black hover:bg-gray-100 focus:bg-gray-100 active:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                {{ __('Register') }}
+                {{ __('Apply to Register') }}
             </button>
 
             <a class="underline text-sm text-white hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">

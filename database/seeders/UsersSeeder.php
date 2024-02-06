@@ -18,7 +18,6 @@ class UsersSeeder extends Seeder
                 'name' => 'Super Admin',
                 'email' => 'it.admin@gloflow.com',
                 'phone_number' => '',
-                'address' => '',
                 'password' => bcrypt('admin.password'), // Password for admin is "admin.password"
                 'role_id' => 1,
             ],
@@ -26,7 +25,6 @@ class UsersSeeder extends Seeder
                 'name' => 'John Doe',
                 'email' => 'johndoe@gmail.com',
                 'phone_number' => '0771234568',
-                'address' => 'No 2, Galle Road, Colombo 03',
                 'password' => bcrypt('password'), // Password for user is "password"
                 'role_id' => 2,
             ],

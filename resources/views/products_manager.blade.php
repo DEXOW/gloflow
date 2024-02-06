@@ -63,7 +63,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="delete-btn font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-solid fa-trash-can text-red-500"></i></button>
                                 </form>
-                                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'edit-item-{{ $product->id }}')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-solid fa-edit text-blue-500"></i></a>
+                                <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'edit-item-{{ $product->id }}')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-solid fa-edit text-blue-500"></i></button>
                             </div>
                         </td>
                     </tr>

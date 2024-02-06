@@ -29,7 +29,6 @@ class UsersManagerController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:8',
-            'address' => 'required',
             'phone_number' => 'required',
             'role_id' => 'required',
         ]);
@@ -37,7 +36,6 @@ class UsersManagerController extends Controller
         $name = $validated['name'];
         $email = $validated['email'];
         $password = bcrypt($validated['password']);
-        $address = $validated['address'];
         $phone_number = $validated['phone_number'];
         $role_id = $validated['role_id'];
 
@@ -46,7 +44,6 @@ class UsersManagerController extends Controller
             'email' => $email,
             'password' => $password,
             'phone_number' => $phone_number,
-            'address' => $address,
             'role_id' => $role_id,
         ]);
 
@@ -66,7 +63,6 @@ class UsersManagerController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
         $phone_number = $request->input('phone_number');
-        $address = $request->input('address');
         $role_id = $request->input('role_id');
 
         $user = User::find($id);
@@ -80,9 +76,6 @@ class UsersManagerController extends Controller
         if ($user->phone_number != $phone_number) {
             $user->phone_number = $phone_number;
         }
-        if ($user->address != $address) {
-            $user->address = $address;
-        }
         if ($user->role_id != $role_id) {
             $user->role_id = $role_id;
         }
@@ -92,21 +85,12 @@ class UsersManagerController extends Controller
         return Redirect::back()->with('success', 'User updated successfully.');
     }
 
-    public function activate_user($id) : RedirectResponse
+    public function toggle_user($id) : RedirectResponse
     {
         $user = User::find($id);
-        $user->status = 'active';
+        $user->status = $user->status == 'active' ? 'inactive' : 'active';
         $user->update();
 
         return Redirect::back()->with('success', 'User activated successfully.');
-    }
-
-    public function deactivate_user($id) : RedirectResponse
-    {
-        $user = User::find($id);
-        $user->status = 'inactive';
-        $user->update();
-
-        return Redirect::back()->with('success', 'User deactivated successfully.');
     }
 }

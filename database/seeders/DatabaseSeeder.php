@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Client;
 use App\Models\Product;
+use App\Models\RetailProduct;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,8 +25,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoleSeeder::class,
+            ClientSeeder::class,
             UsersSeeder::class,
             ProductsSeeder::class,
+            RetailProductsSeeder::class,
         ]);
     }
 }

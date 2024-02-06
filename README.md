@@ -1,6 +1,6 @@
 # Gloflow CRM System
 
-![Gloflow](public/assets/images/logo.svg)
+![Gloflow](public/assets/icons/logo.svg)
 
 ## Overview
 

@@ -53,7 +53,9 @@
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="ps-6 pe-4 py-3">
                             <div class="flex items-center">
-                                <input id="checkbox-item-{{ $user->id }}" value="{{ $user->id }}" type="checkbox" class="item-checkbox focus:ring-0 w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+                                @if ($user->id != 1)
+                                    <input id="checkbox-item-{{ $user->id }}" value="{{ $user->id }}" type="checkbox" class="item-checkbox focus:ring-0 w-4 h-4 text-blue-600 bg-gray-200 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600">
+                                @endif 
                                 <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                             </div>
                         </td>
@@ -89,19 +91,15 @@
                         <td class="ps-4 pe-6 py-3">
                             <div class="flex items-center justify-evenly">
                                 @if ($roles[$user->role_id - 1]->name != 'admin')
-                                    @if ($user->status == 'active')
-                                        <form action="{{ route('dashboard.users_manager.deactivate_user', $user->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
+                                    <form action="{{ route('dashboard.users_manager.toggle_user', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        @if ($user->status == 'active')
                                             <button type="submit" class="delete-btn font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-solid fa-ban text-red-500"></i></button>
-                                        </form>
-                                    @else
-                                        <form action="{{ route('dashboard.users_manager.activate_user', $user->id) }}" method="POST">
-                                            @csrf
-                                            @method('PUT')
+                                        @else
                                             <button type="submit" class="delete-btn font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fa-regular fa-circle-check text-green-500"></i></button>
-                                        </form>
-                                    @endif
+                                        @endif
+                                    </form>
                                     <form action="{{ route('dashboard.users_manager.delete_user', $user->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -294,7 +292,7 @@
           });
 
           if (checkedProductIds.length > 0) {
-            if (confirm('Are you sure you want to delete these products?')) {
+            if (confirm('Are you sure you want to delete these users?')) {
                 axios.post('{{ route('dashboard.products_manager.batch_delete_products') }}', {
                     _token: '{{ csrf_token() }}',
                     ids: checkedProductIds

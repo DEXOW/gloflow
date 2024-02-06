@@ -1,4 +1,6 @@
 @php
+    use Illuminate\Support\Collection;
+    
     $dashboard = false;
     if (request()->routeIs('home') || request()->routeIs('products') || request()->routeIs('about')) {
         $dashboard = false;
@@ -35,36 +37,45 @@
                     @php
                         $userRole = Auth::user()->role_id;
                         $perms = DB::table('roles')->where('id', $userRole)->get()->first();
+
+                        $ifHasManage = Collection::make($perms)->first(function ($value, $key) {
+                            return strpos($key, 'manage') !== false && $value == 1;
+                        });
                     @endphp
                     <x-nav :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav>
-                    @if ($perms->manage_products == 1 || $perms->manage_users == 1)
-                        <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-900 font-semibold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gloflow-purple-500 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
-                            Managers
-                            <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                            </svg>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                            <ul class="px-4 py-2 text-sm text-gray-700 dark:text-gray-400 space-y-2" aria-labelledby="dropdownLargeButton">
-                                <li>
-                                    @if ($perms->manage_products == 1)
-                                        <x-nav :href="route('dashboard.products_manager')" :active="request()->routeIs('dashboard.products_manager')">
-                                            {{ __('Products Manager') }}
-                                        </x-nav>
-                                    @endif
-                                </li>
-                                <li>
-                                    @if ($perms->manage_users == 1)
-                                        <x-nav :href="route('dashboard.users_manager')" :active="request()->routeIs('dashboard.users_manager')">
-                                            {{ __('Users Manager') }}
-                                        </x-nav>
-                                    @endif
-                                </li>
-                            </ul>
-                        </div>
+                    @if (Auth::user()->status == "active")
+                        <x-nav :href="route('dashboard.orders')" :active="request()->routeIs('dashboard.orders')">
+                            {{ __('Orders') }}
+                        </x-nav>
+                        @if ($ifHasManage)
+                            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-900 font-semibold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-gloflow-purple-500 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                                Managers
+                                <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                </svg>
+                            </button>
+                            <!-- Dropdown menu -->
+                            <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                                <ul class="px-4 py-2 text-sm text-gray-700 dark:text-gray-400 space-y-2" aria-labelledby="dropdownLargeButton">
+                                    <li>
+                                        @if ($perms->manage_products == 1)
+                                            <x-nav :href="route('dashboard.products_manager')" :active="request()->routeIs('dashboard.products_manager')">
+                                                {{ __('Products Manager') }}
+                                            </x-nav>
+                                        @endif
+                                    </li>
+                                    <li>
+                                        @if ($perms->manage_users == 1)
+                                            <x-nav :href="route('dashboard.users_manager')" :active="request()->routeIs('dashboard.users_manager')">
+                                                {{ __('Users Manager') }}
+                                            </x-nav>
+                                        @endif
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
                     @endif
                 @endif
                 
