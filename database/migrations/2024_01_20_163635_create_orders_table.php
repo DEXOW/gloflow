@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('client_id');
-            $table->foreignId('order_items_id');
-            $table->integer('total_order_value');
+            $table->integer('total_order_value')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
 
@@ -24,8 +24,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id');
             $table->foreignId('product_id');
-            $table->integer('qty');
-            $table->integer('total_value');
+            $table->integer('qty')->default(0);
             $table->timestamps();
         });
     }

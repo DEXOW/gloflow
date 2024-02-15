@@ -44,8 +44,18 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete_user/{user}', [UsersManagerController::class, 'delete_user'])->name('dashboard.users_manager.delete_user');
         Route::put('/toggle_user/{user}', [UsersManagerController::class, 'toggle_user'])->name('dashboard.users_manager.toggle_user');
     });
+    Route::prefix('clients_manager')->group(function () {
+        Route::get('/', [ClientsController::class, 'index'])->name('dashboard.clients_manager');
+        Route::post('/add_client', [ClientsController::class, 'add_client'])->name('dashboard.clients_manager.add_client');
+        Route::put('/update_client/{client}', [ClientsController::class, 'update_client'])->name('dashboard.clients_manager.update_client');
+        Route::delete('/delete_client/{client}', [ClientsController::class, 'delete_client'])->name('dashboard.clients_manager.delete_client');
+        Route::put('/toggle_client/{client}', [ClientsController::class, 'toggle_client'])->name('dashboard.clients_manager.toggle_client');
+    });
     Route::prefix('orders')->group(function () {
-        Route::get('/', [OrdersController::class, 'index'])->name('dashboard.orders');
+        Route::get('/place_order', [OrdersController::class, 'place_order_view'])->name('dashboard.place_orders');
+        Route::post('/place_order', [OrdersController::class, 'place_order'])->name('dashboard.orders.place_order');
+        Route::get('/manage_orders', [OrdersController::class, 'manage_orders_view'])->name('dashboard.manage_orders');
+        Route::put('/update_order_status', [OrdersController::class, 'update_order_status'])->name('dashboard.orders.update_order_status');
     });
 });
 

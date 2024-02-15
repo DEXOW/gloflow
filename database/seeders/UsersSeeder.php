@@ -27,6 +27,7 @@ class UsersSeeder extends Seeder
                 'phone_number' => '0771234568',
                 'password' => bcrypt('password'), // Password for user is "password"
                 'role_id' => 2,
+                'client_id' => 1,
             ],
         ];
         foreach ($users as $user) {

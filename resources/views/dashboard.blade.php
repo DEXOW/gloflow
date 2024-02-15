@@ -22,27 +22,33 @@
                 @endif
             </div>
         @else
+            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 4)
             <div class="flex flex-wrap justify-center xl:justify-between sm:justify-start w-full gap-2 mb-5">
+                @php
+                    $productsCount = \App\Models\RetailProduct::all()->count();
+                    $ordersCount = \App\Models\Order::all()->count();
+                    $totalOrderValue = \App\Models\Order::all()->sum('total_order_value');
+                @endphp
                 <div
                     class="block w-80 p-4 md:p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5
                         class="mb-2 text-lg font-extrabold whitespace-nowrap tracking-tight text-gray-900 dark:text-white">
                         Total Products</h5>
-                    <p class="text-3xl font-extrabold text-gray-900 dark:text-white">90</p>
+                    <p class="text-3xl font-extrabold text-gray-900 dark:text-white">{{$productsCount}}</p>
                 </div>
                 <div
                     class="block w-80 p-4 md:p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5
                         class="mb-2 text-lg font-extrabold whitespace-nowrap tracking-tight text-gray-900 dark:text-white">
                         Total Orders</h5>
-                    <p class="text-3xl font-extrabold text-gray-900 dark:text-white">80</p>
+                    <p class="text-3xl font-extrabold text-gray-900 dark:text-white">{{$ordersCount}}</p>
                 </div>
                 <div
                     class="block w-80 p-4 md:p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <h5
                         class="mb-2 text-lg font-extrabold whitespace-nowrap tracking-tight text-gray-900 dark:text-white">
                         Total Order Value</h5>
-                    <p class="text-3xl font-extrabold text-gray-900 dark:text-white">10,000,000</p>
+                    <p class="text-3xl font-extrabold text-gray-900 dark:text-white">{{number_format($totalOrderValue,  0, '.', ',')}}</p>
                 </div>
                 <div
                     class="block w-80 p-4 md:p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
@@ -52,90 +58,17 @@
                     <p class="text-3xl font-extrabold text-gray-900 dark:text-white">10</p>
                 </div>
             </div>
-
+            @endif
+            
             <div class="flex md:flex-row flex-col justify-center xl:justify-between sm:justify-start max-sm:items-center w-full gap-10 mb-5 sm:mb-10">
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 4)
                 <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
                     <div class="flex justify-between items-start w-full">
                         <div class="flex-col items-center">
                             <div class="flex items-center mb-1">
                                 <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">
-                                    Website traffic
+                                    Order Demographics
                                 </h5>
-                                <svg data-popover-target="chart-info" data-popover-placement="bottom"
-                                    class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1"
-                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                    viewBox="0 0 20 20">
-                                    <path
-                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z" />
-                                </svg>
-                                <div data-popover id="chart-info" role="tooltip"
-                                    class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
-                                    <div class="p-3 space-y-2">
-                                        <h3 class="font-semibold text-gray-900 dark:text-white">Activity growth -
-                                            Incremental</h3>
-                                        <p>Report helps navigate cumulative growth of community activities. Ideally, the
-                                            chart should have a growing trend, as stagnating chart signifies a significant
-                                            decrease of community activity.</p>
-                                        <h3 class="font-semibold text-gray-900 dark:text-white">Calculation</h3>
-                                        <p>For each date bucket, the all-time volume of activities is calculated. This means
-                                            that activities in period n contain all activities up to period n, plus the
-                                            activities generated by your community in period.</p>
-                                        <a href="#"
-                                            class="flex items-center font-medium text-blue-600 dark:text-blue-500 dark:hover:text-blue-600 hover:text-blue-700 hover:underline">Read
-                                            more <svg class="w-2 h-2 ms-1.5 rtl:rotate-180" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="m1 9 4-4-4-4" />
-                                            </svg></a>
-                                    </div>
-                                    <div data-popper-arrow></div>
-                                </div>
-                            </div>
-                            <button id="dateRangeButton" data-dropdown-toggle="dateRangeDropdown"
-                                data-dropdown-ignore-click-outside-class="datepicker" type="button"
-                                class="inline-flex items-center text-blue-700 dark:text-blue-600 font-medium hover:underline">
-                                31 Nov - 31 Dev
-                                <svg class="w-3 h-3 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 1 4 4 4-4" />
-                                </svg>
-                            </button>
-                            <div id="dateRangeDropdown"
-                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 lg:w-96 dark:bg-gray-700 dark:divide-gray-600">
-                                <div class="p-3" aria-labelledby="dateRangeButton">
-                                    <div date-rangepicker datepicker-autohide class="flex items-center">
-                                        <div class="relative">
-                                            <div
-                                                class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                                </svg>
-                                            </div>
-                                            <input name="start" type="text"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Start date">
-                                        </div>
-                                        <span class="mx-2 text-gray-500 dark:text-gray-400">to</span>
-                                        <div class="relative">
-                                            <div
-                                                class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                    viewBox="0 0 20 20">
-                                                    <path
-                                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                                </svg>
-                                            </div>
-                                            <input name="end" type="text"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="End date">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="flex justify-end items-center">
@@ -156,17 +89,6 @@
                                         <a href="#"
                                             class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg
                                                 class="w-3 h-3 me-2" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 21 21">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="M7.418 17.861 1 20l2.139-6.418m4.279 4.279 10.7-10.7a3.027 3.027 0 0 0-2.14-5.165c-.802 0-1.571.319-2.139.886l-10.7 10.7m4.279 4.279-4.279-4.279m2.139 2.14 7.844-7.844m-1.426-2.853 4.279 4.279" />
-                                            </svg>Edit widget
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg
-                                                class="w-3 h-3 me-2" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                 viewBox="0 0 20 20">
                                                 <path
@@ -174,28 +96,6 @@
                                                 <path
                                                     d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
                                             </svg>Download data
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg
-                                                class="w-3 h-3 me-2" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="m5.953 7.467 6.094-2.612m.096 8.114L5.857 9.676m.305-1.192a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0ZM17 3.84a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Zm0 10.322a2.581 2.581 0 1 1-5.162 0 2.581 2.581 0 0 1 5.162 0Z" />
-                                            </svg>Add to repository
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><svg
-                                                class="w-3 h-3 me-2" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 18 20">
-                                                <path
-                                                    d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z" />
-                                            </svg>Delete widget
                                         </a>
                                     </li>
                                 </ul>
@@ -209,7 +109,7 @@
                         class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
                         <div class="flex justify-between items-center pt-5">
                             <!-- Button -->
-                            <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown"
+                            {{-- <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown"
                                 data-dropdown-placement="bottom"
                                 class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
                                 type="button">
@@ -248,8 +148,8 @@
                                             90 days</a>
                                     </li>
                                 </ul>
-                            </div>
-                            <a href="#"
+                            </div> --}}
+                            {{-- <a href="#"
                                 class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
                                 Traffic analysis
                                 <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true"
@@ -257,10 +157,11 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="2" d="m1 9 4-4-4-4" />
                                 </svg>
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
+                @endif
                 <div class="bg-white rounded-lg shadow w-full p-4 md:p-6">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">
                         Notifications
@@ -275,7 +176,7 @@
                         @endphp
                         @if (!$notifications)
                             <div class="flex items-center justify-center w-full h-full">
-                                <div class="flex flex-col items-center text-gray-400">
+                                <div class="flex flex-col items-center text-gray-400 pb-10">
                                     <div class="mb-5"><i class="fa-solid fa-bell fa-2xl"></i></div>
                                     <p class="text-lg font-semibold text-gray-600 dark:text-white">No notifications</p>
                                     <p class="text-md text-gray-400 dark:text-gray-400">You have no pending notifications</p>
@@ -351,12 +252,16 @@
             </div>
         @endif
     </div>
+    @php
+        $orderCountEachClient = \App\Models\Order::select('client_id', \DB::raw('count(*) as total'))->groupBy('client_id')->get();
+        // dd($orderCountEachClient->pluck('client_id')->map(function($id) { return \App\Models\Client::where('id', $id)->first()->name; })->join(", "))
+    @endphp
     <script>
         // ApexCharts options and config
         window.addEventListener("load", function() {
             const getChartOptions = () => {
                 return {
-                    series: [52.8, 26.8, 20.4],
+                    series: [{{ $orderCountEachClient->pluck('total')->join(', ') }}],
                     colors: ["#1C64F2", "#16BDCA", "#9061F9"],
                     chart: {
                         height: 420,
@@ -378,7 +283,7 @@
                             }
                         },
                     },
-                    labels: ["Direct", "Organic search", "Referrals"],
+                    labels: @json($orderCountEachClient->pluck('client_id')->map(function($id) {return \App\Models\Client::where('id', $id)->first()->name;})->toArray()),
                     dataLabels: {
                         enabled: true,
                         style: {
