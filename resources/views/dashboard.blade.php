@@ -170,7 +170,7 @@
                         @php
                             $pendingAcc = \App\Models\User::where('status', 'pending')->get();
                             $notifications = false;
-                            if ($pendingAcc->count() > 0) {
+                            if ($pendingAcc->count() > 0 && Auth::user()->role_id == 1 || Auth::user()->role_id == 4){
                                 $notifications = true;
                             }
                         @endphp
@@ -216,7 +216,7 @@
                                         </button>
                                     </div>
                                     <!-- Modal body -->
-                                    <form class="p-4 md:p-5" id="edit-form-{{ $user->id }}" action="{{ route('dashboard.products_manager.update_product', $user->id) }}" method="post" enctype="multipart/form-data">
+                                    <form class="p-4 md:p-5" id="edit-form-{{ $user->id }}" action="{{ route('dashboard.users_manager.toggle_user', $user->id) }}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
                                         <div class="grid gap-4 mb-10 grid-cols-2">
@@ -254,7 +254,6 @@
     </div>
     @php
         $orderCountEachClient = \App\Models\Order::select('client_id', \DB::raw('count(*) as total'))->groupBy('client_id')->get();
-        // dd($orderCountEachClient->pluck('client_id')->map(function($id) { return \App\Models\Client::where('id', $id)->first()->name; })->join(", "))
     @endphp
     <script>
         // ApexCharts options and config
