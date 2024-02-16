@@ -45,7 +45,9 @@
                             {{ number_format($order->total_order_value,  0, '.', ',') }}
                         </td>
                         <td scope="row" class="px-4 py-3 text-center">
-                            @if ($order->status == 'processing')
+                            @if ($order->status == 'pending')
+                                <span class="bg-gray-500 text-white whitespace-nowrap text-xs font-medium m-0.5 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ Str::ucfirst($order->status) }}</span>
+                            @elseif ($order->status == 'processing')
                                 <span class="bg-green-500 text-white whitespace-nowrap text-xs font-medium m-0.5 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ Str::ucfirst($order->status) }}</span>
                             @elseif ($order->status == 'cancelled')
                                 <span class="bg-red-500 text-white whitespace-nowrap text-xs font-medium m-0.5 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">{{ Str::ucfirst($order->status) }}</span>
@@ -105,7 +107,7 @@
                             </div>
                             <div class="md:w-1/2">
                                 <h4 class="text-md font-semibold text-gray-900 dark:text-white">Order Status</h4>
-                                <p class="text-gray-600 dark:text-gray-400">{{ $order->status }}</p>
+                                <p class="text-gray-600 dark:text-gray-400">{{ Str::ucfirst($order->status) }}</p>
                             </div>
                         </div>
                     </div>

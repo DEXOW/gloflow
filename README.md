@@ -24,26 +24,69 @@ In an ever-evolving business landscape, Gloflow CRM stands as the quintessential
 - Role-based user access control for enhanced security and data protection.
 - Simple user onboarding and management to tailor access permissions.
 
-### 4.0 Support and Documentation:
-
-- Customer support systems.
-- In-app help resources and documentation for user guidance.
-
-### 5.0 Inventory Management:
+### 4.0 Inventory Management:
 
 - Inventory tracking with real-time updates on stock levels and order status.
 - Automated alerts for low stock and reordering.
-
-### 6.0 Communication Management:
-
-- Centralized communication history with customers, including emails, calls, and messages.
-- Automated communication workflows for timely follow-ups and responses.
 
 ## Technologies Used
 
 - Laravel: A powerful PHP framework for building web applications.
 - Bootstrap: A utility-first CSS framework for creating responsive and customizable UI components.
 - SQLite: A lightweight and easy-to-use database engine.
+
+## Pages
+
+### Home
+The landing page for the website in order to provide new clients a brief overview into the services that the oraganisation covers.
+
+![Home page image](public/assets/images/other/home_page_image.jpeg)
+
+### Products
+The page in which the organisation is able to list all thier products to be on display as mean of letting the clients know the products that they can purchase from the organisation.
+
+
+![Products page image](public/assets/images/other/products_page_image.jpeg)
+
+### Register
+New users are able to apply for registrations via this page. Once applied for registration, a account creation request will be sent to the managers of the organisation.
+
+![Register page image](public/assets/images/other/register_page_image.jpeg)
+
+### Login
+An existing user is able to login to thier account to place orders, view analytics and etc via this page. 
+
+![Login page image](public/assets/images/other/login_page_image.jpeg)
+
+### Dashboard (Admin / Distributor View)
+Shows a basic statistical overview relative to each user. Shows any notifications available for the user in the dedicated notifications section in the dashboard.
+
+![Dashboard page image (Admin / distributor view)](public/assets/images/other/dashboard_page_image.jpeg)
+
+### Place Order
+A user is able to make orders for products that they want to acquire in order to be sold. When a order is placed a new order is added to the database. If a order from that client already exists for that day then it will be updated when a order is placed instead of creating a new one.
+
+![Place Order page image](public/assets/images/other/place_order_page_image.jpeg)
+
+### Manage Orders
+Authorised personnel will be able to manage all order that are placed through this page. They will be able to view, accept and deny any orders that are placed by clients.
+
+![Manage Orders page image](public/assets/images/other/manage_orders_image.jpeg)
+
+### Products Manager
+A CRUD system for the organisation to manage the products that are displayed on the products page.
+
+![Products Manager page image](public/assets/images/other/products_manager_image.jpeg)
+
+### Users Manager
+A CRUD system for the organisation to manage the users in the system.
+
+![Users Manager page image](public/assets/images/other/users_manager_image.jpeg)
+
+### Clients Manager
+A CRUD system for the organisation to manage the clients in the system.
+
+![Clients Manager page image](public/assets/images/other/clients_manager_image.jpeg)
 
 ## Installation
 
