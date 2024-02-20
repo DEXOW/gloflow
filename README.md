@@ -31,9 +31,9 @@ In an ever-evolving business landscape, Gloflow CRM stands as the quintessential
 
 ## Technologies Used
 
-- Laravel: A powerful PHP framework for building web applications.
-- Bootstrap: A utility-first CSS framework for creating responsive and customizable UI components.
-- SQLite: A lightweight and easy-to-use database engine.
+- <b>Laravel:</b> A powerful PHP framework for building web applications.
+- <b>Tailwind:</b> Tailwind CSS is an open source CSS framework.
+- <b>SQLite:</b> A lightweight and easy-to-use database engine.
 
 ## Pages
 
